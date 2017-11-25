@@ -53,7 +53,7 @@
     <a href="#accounts-menu" class="nav-header" data-toggle="collapse"><i class="icon-exclamation-sign"></i>商品管理</a>
     <ul id="accounts-menu" class="nav nav-list collapse in">
         <li><a href="/index.php/Admin/Goods/goods_list;">商品列表</a></li>
-        <li><a href="/index.php/Admin/GOODS/goods_add">商品新增</a></li>
+        <li><a href="/index.php/Admin/Goods/goods_add">商品新增</a></li>
         <li><a href="javascript:void(0);">商品类型</a></li>
         <li><a href="javascript:void(0);">商品分类</a></li>
     </ul>
@@ -112,12 +112,12 @@
                     <td><?php echo ($v["goods_name"]); ?></td>
                     <td><?php echo ($v["goods_price"]); ?></td>
                     <td><?php echo ($v["goods_number"]); ?></td>
-                    <td><img src="/Public/Admin/img/goods01.jpg"></td>
+                    <td><img src="<?php echo ($v["goods_big_img"]); ?>"></td>
                     <td><img src="/Public/Admin/img/goods01_thumb.jpg"></td>
                     <td><?php echo date('Y-m-d H:i:s'),$v[goods_create_time];?></td>
                     <td>
                         <a href="/index.php/Admin/Goods/Goods/goods_edit/id<?php echo ($v["id"]); ?>"><i class="icon-pencil"></i></a>
-                        <a href="javascript:void(0);" onclick="if(confirm('?del'))
+                        <a href="javascript:void(0);" onclick="if(confirm('是否删除'))
                            href='/index.php/Admin/Goods/Goods/goods_del/id<?php echo ($v["id"]); ?>'"><i class="icon-remove"></i></a>
                     </td>
                 </tr>

@@ -36,6 +36,12 @@ class  GoodsController extends controller
                 //dump($res);die;
                 if($res){
                     $data['goods_big_img'] = UPLOAD_PATH . $res['savepath'] . $res['savename'];
+                    $image = new \Think\Image();
+                    $image->open(ROOT_PATH.$data['goods_big_img']);//打开原图片
+                    $image ->thumb(188,188);
+                    $thumb =UPLOAD_PATH.$res['savepath'].$res['savename'];
+                    $image->save(ROOT_PATH.$thumb);//保存data里面；
+                    $data['goods_samll_img']=$thumb;
 
                 }else{
                     $error = $upload ->getError();
