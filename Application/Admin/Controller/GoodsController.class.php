@@ -7,6 +7,7 @@
  */
 namespace Admin\Controller;
 use Think\Controller;
+
 class  GoodsController extends controller
 {
     public function goods_list()
@@ -20,9 +21,32 @@ class  GoodsController extends controller
     {
         if(IS_POST){
             $data = I('post.');
+            //dump($_FILES);die;
+            if(!empty($_FILES['logo']) && $_FILES['logo']['error']==0){
+                $config = array(
+                    'maxSize'           => 2*1024*1024,//此设置(20M)byte,与PHPini里面设置以小的为准
+                    'exts'              => array('jpg','png','gif','jpeg'),
+                    'rootPath'              => ROOT_PATH . UPLOAD_PATH,//以根路径开始，
+                );
+                $upload = new \Think\Upload($config);
+                //dump($upload);die;
+
+                $res = $upload -> uploadOne($_FILES['logo']);
+
+                //dump($res);die;
+                if($res){
+                    $data['goods_big_img'] = UPLOAD_PATH . $res['savepath'] . $res['savename'];
+
+                }else{
+                    $error = $upload ->getError();
+                    $this->error($error);
+                }
+            }else{
+                //必须上传图片才能上传商品
+            }
             $model = D('Goods');
 
-            $create = $modle ->create($data);
+            $create = $model ->create($data);
             if(!$create){
                 $error = $model -> getError();
                 $this->error($error);

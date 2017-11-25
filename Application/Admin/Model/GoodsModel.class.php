@@ -28,9 +28,9 @@ class GoodsModel extends Model
     );
 
     //自动完成
-    protected $_auto = array(
+   /* protected $_auto = array(
         array('goods_create_time','time',1,'function ')
-    );
+    );*/
 
 
 
