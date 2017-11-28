@@ -12,7 +12,7 @@ class  GoodsController extends controller
 {
     public function goods_list()
     {
-        $res = D('Goods');
+        $model = D('Goods');
         $total = $model->count();
         $pagesize = 2;//每页显示条数
         $page = new \Think\Page($total, $pagesize);//总记录数、每页显示条数
@@ -26,7 +26,7 @@ class  GoodsController extends controller
         $page_html = $page->show();
         $this->assign('page_html', $page_html);
         $data = $model->limit($page->firstRow, $page->listRows)->select();
-        $data->assign('data', $data);
+        $this->assign('data', $data);
         $this->display();
     }
 
