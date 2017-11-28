@@ -13,10 +13,23 @@ class  GoodsController extends controller
     public function goods_list()
     {
         $res = D('Goods');
-        $data = $res->select();
-        $this->assign('data',$data);
+        $total = $model->count();
+        $pagesize = 2;//每页显示条数
+        $page = new \Think\Page($total, $pagesize);//总记录数、每页显示条数
+        $page->setConfig('prev', '上一页');
+        $page->setConfig('next', '下一页');
+        $page->setConfig('first', '首页');
+        $page->setConfig('last', '尾页');
+        $page->setConfig('theme', '%FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END% %HEADER%');
+        $page->rollPage = 4;
+        $page->lastSuffix = false;
+        $page_html = $page->show();
+        $this->assign('page_html', $page_html);
+        $data = $model->limit($page->firstRow, $page->listRows)->select();
+        $data->assign('data', $data);
         $this->display();
     }
+
     public function goods_add()
     {
         if(IS_POST){
